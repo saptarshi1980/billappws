@@ -14,4 +14,16 @@ public class NavigationController{
 		ModelAndView model = new ModelAndView("index"); 
 		return model;
 	}
+	@RequestMapping(value="/otp.dpl",method = RequestMethod.POST)
+	public ModelAndView otp(){
+ 
+		ModelAndView model = new ModelAndView("otp"); 
+		return model;
+	}
+	@RequestMapping(value="/otpValidator.dpl",method = RequestMethod.POST)
+	public ModelAndView otpValidator(){
+ 
+		ModelAndView model = new ModelAndView("newConn"); 
+		return model;
+	}
 }

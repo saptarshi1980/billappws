@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>DPL CRM</title>
+<title>DPL CRM PORTAL</title>
 <style type="text/css">
 <!--
 .style1 {color: #FFFFFF}
@@ -13,8 +13,10 @@
 </head>
 
 <body>
+<!-- <div align="center"><img src="images/tmc.png" /> -->
 <div align="center"><img src="images/logo_blue.jpg" /></div><br>
 <div align="center"><p></p><p></p><p></p><p></p><p></p><p></p><p></p><br></br><br></br>
+<FORM id="form1" name="form1" method="post" action="otp.dpl">
 <table width="765" border="1" cellpadding="2">
   <tr>
     <th colspan="2" bordercolor="#F0F0F0" bgcolor="#000066" scope="row"><label>
@@ -30,25 +32,25 @@
   </tr>
   <tr>
     <th height="32" bgcolor="#CCCCCC" scope="row">Mobile Number </th>
-    <th bgcolor="#CCCCCC" scope="row"><form id="form1" name="form1" method="post" action="">
+    <th bgcolor="#CCCCCC" scope="row">
       <label>
         <div align="left">
           <input name="textfield2" type="text" size="20" maxlength="11" />
         </div>
       </label>
-    </form>    </th>
+      </th>
   </tr>
   <tr>
-    <th colspan="2" bgcolor="#CCCCCC" scope="row"><form id="form2" name="form2" method="post" action="">
+    <th colspan="2" bgcolor="#CCCCCC" scope="row">
       <label>
       <input type="submit" name="Submit" value="Generate One Time Password" />
         </label>
-    </form>
+    
     </th>
   </tr>
 </table>
 <div>
-
+</form>
 <p>&nbsp;</p>
 <table width="767" border="1" cellpadding="2">
   <tr>
