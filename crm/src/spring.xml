@@ -20,23 +20,9 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
 	<property name="dataSource" ref="ds"></property>  
 	</bean> 
-	<bean id="tdao" class="in.net.dpl.dao.TenderDAO">  
-	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+	<bean id="otpString" class="in.net.dpl.utility.OtpString">  
+	 
 	</bean>
-	<bean id="fdao" class="in.net.dpl.dao.FileDAO">  
-	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
-	</bean>   
-	<bean id="hrdao" class="in.net.dpl.dao.HrDAO">  
-	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
-	</bean>
-	<bean id="tariffdao" class="in.net.dpl.dao.TariffDAO">  
-	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
-	</bean>
-	<bean id="newsdao" class="in.net.dpl.dao.NewsDAO">  
-	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
-	</bean>
-	<bean id="recentdao" class="in.net.dpl.dao.RecentDAO">  
-	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
-	</bean>
+	
 
 </beans>

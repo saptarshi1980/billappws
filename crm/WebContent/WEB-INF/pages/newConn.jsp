@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page errorPage="ShowError.jsp" %>
 <html>
 <head>
@@ -69,9 +71,9 @@ if (phase==null || phase=="")
   return false;
   }
   
-var unit_name=document.forms["form1"]["unit_name"].value;
+var name=document.forms["form1"]["name"].value;
 
-if (unit_name==null || unit_name=="")
+if (name==null || name=="")
   {
   alert("Fields must be entered properly");
   return false;
@@ -299,17 +301,17 @@ function applicantLand()
     <td height="28" bgcolor="#CCCCCC"><table cellspacing="0" cellpadding="0">
     <td height="20" width="246">Name of the Consumer </td>
     </table></td>
-    <td bgcolor="#CCCCCC"><input name="unit_name" type="text" size="50"></td>
+    <td bgcolor="#CCCCCC"><input name="name" type="text" size="50" value="<c:out value="${name}" />"></td>
   </tr>
   <tr>
     <td height="28" bgcolor="#CCCCCC"><table cellspacing="0" cellpadding="0">
-  <td height="20" width="246">Address of the    UNIT: Line 1</td>
+  <td height="20" width="246">Address: Line 1</td>
     </table></td>
     <td bgcolor="#CCCCCC"><input name="address1" type="text" size="50"></td>
   </tr>
   <tr>
     <td height="28" bgcolor="#CCCCCC"><table cellspacing="0" cellpadding="0">
-  <td height="20" width="246">Address of the    UNIT: Line 2</td>
+  <td height="20" width="246">Address: Line 2</td>
     </table></td>
     <td bgcolor="#CCCCCC"><input name="address2" type="text" size="50"></td>
   </tr>
@@ -329,7 +331,7 @@ function applicantLand()
     <td height="28" bgcolor="#CCCCCC"><table cellspacing="0" cellpadding="0">
     <td height="20" width="246">Mobile</td>
     </table></td>
-    <td bgcolor="#CCCCCC"><input name="mobile" type="text" maxlength="10" onBlur="return validateMobile()"></td>
+    <td bgcolor="#CCCCCC"><input name="mobile" type="text" maxlength="10" onBlur="return validateMobile()" value="<c:out value="${mobile}" />"></td>
   </tr>
   
   <tr>

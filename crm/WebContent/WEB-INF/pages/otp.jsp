@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,9 +16,12 @@
 </head>
 
 <body>
+
 <div align="center"><img src="images/logo_blue.jpg" /></div><br>
 <div align="center"><p></p><p></p><p></p><p></p><p></p><p></p><p></p><br></br><br></br>
 <FORM id="form1" name="form1" method="post" action="otpValidator.dpl">
+<input type="hidden" name="name" value="<c:out value="${name}" />" />
+    <input type="hidden" name="mobile" value="<c:out value="${mobile}" />" />
 <table width="509" border="1" cellpadding="2">
   <tr>
     <td colspan="2" bordercolor="#F0F0F0" bgcolor="#000066" scope="row">
@@ -27,7 +32,7 @@
   <tr>
     <th width="203" bgcolor="#CCCCCC" scope="row">OTP</th>
     <th width="286" bgcolor="#CCCCCC" scope="row">      <div align="left">
-      <input name="textfield" type="text" size="20" />    
+      <input name="otp" type="text" size="20" />    
     </div></th>
   </tr>
   

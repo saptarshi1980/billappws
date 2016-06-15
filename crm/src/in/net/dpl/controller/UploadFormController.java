@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,19 +27,33 @@ public class UploadFormController implements HandlerExceptionResolver{
 
 	
 	@RequestMapping(value="/UploadForm.dpl",method=RequestMethod.POST)
-    public String showForm(ModelMap model){
-        UploadForm form = new UploadForm();
+    public String showForm(ModelMap model,@RequestParam("load") String load,@RequestParam("phase") String phase,@RequestParam("address1") String address1,@RequestParam("address1") String address2,@RequestParam("pin_code") String pin_code,@RequestParam("landmark") String landmark,@RequestParam("landline") String landline,@RequestParam("name") String name,@RequestParam("mobile") String mobile,HttpServletRequest request){
+		request.setAttribute("name", name);
+		request.setAttribute("mobile", mobile);
+		request.setAttribute("load", load);
+		request.setAttribute("phase", phase);
+		request.setAttribute("address1", address1);
+		request.setAttribute("address2", address2);
+		request.setAttribute("pin_code", pin_code);
+		request.setAttribute("landmark", landmark);
+		request.setAttribute("landline", landline);
+		UploadForm form = new UploadForm();
         model.addAttribute("FORM", form);
         return "FileUploadForm";
     }
 
     
     @RequestMapping(value="/FileUploadForm.dpl",method=RequestMethod.POST)
-    public String processForm(@ModelAttribute(value="FORM") UploadForm form,BindingResult result){
+    public String processForm(@ModelAttribute(value="FORM") UploadForm form,BindingResult result,@RequestParam("load") String load,@RequestParam("phase") String phase,@RequestParam("address1") String address1,@RequestParam("address1") String address2,@RequestParam("pin_code") String pin_code,@RequestParam("landmark") String landmark,@RequestParam("landline") String landline,@RequestParam("name") String name,@RequestParam("mobile") String mobile,HttpServletRequest request){
         if(!result.hasErrors()){
-            FileOutputStream outputStream = null;
+            
+        	System.out.println(load);
+        	FileOutputStream outputStream = null;
             System.setProperty("java.io.tmpdir", "d:/uploadcrm");
-            String filePath = System.getProperty("java.io.tmpdir") + "/" + form.getFile().getOriginalFilename();
+            String path=System.getProperty("java.io.tmpdir")+"/14062016/1";
+            File f = new File(path);
+            f.mkdirs();
+            String filePath = path+"/"+form.getFile().getOriginalFilename();
             try {
                 outputStream = new FileOutputStream(new File(filePath));
                 outputStream.write(form.getFile().getFileItem().get());

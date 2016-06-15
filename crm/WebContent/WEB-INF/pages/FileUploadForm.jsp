@@ -2,6 +2,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page session="true" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
@@ -50,6 +51,15 @@
         </strong><br />
         <br>
         <form:form commandName="FORM"  action="FileUploadForm.dpl" enctype="multipart/form-data" method="POST" onsubmit="return CheckFileName()">
+        <input type="hidden" name="name" value="<c:out value="${name}" />" />
+    	<input type="hidden" name="mobile" value="<c:out value="${mobile}" />" />
+    	<input type="hidden" name="load" value="<c:out value="${load}" />" />
+    	<input type="hidden" name="phase" value="<c:out value="${phase}" />" />
+    	<input type="hidden" name="pin_code" value="<c:out value="${pin_code}" />" />
+    	<input type="hidden" name="landmark" value="<c:out value="${landmark}" />" />
+    	<input type="hidden" name="landline" value="<c:out value="${landline}" />" />
+    	<input type="hidden" name="address1" value="<c:out value="${address1}" />" />
+    	<input type="hidden" name="address2" value="<c:out value="${address2}" />" />
         </span>
         <table border="1" cellpadding="2">
          <tr><td colspan="2" style="color: red;"><form:errors path="*" cssStyle="color : red;"/>

@@ -27,7 +27,7 @@
   <tr>
     <th width="134" bgcolor="#CCCCCC" scope="row">Name</th>
     <th width="611" bgcolor="#CCCCCC" scope="row">      <div align="left">
-      <input name="textfield" type="text" size="80" />    
+      <input name="name" type="text" size="80" />    
     </div></th>
   </tr>
   <tr>
@@ -35,7 +35,7 @@
     <th bgcolor="#CCCCCC" scope="row">
       <label>
         <div align="left">
-          <input name="textfield2" type="text" size="20" maxlength="11" />
+          <input name="mobile" type="text" size="20" maxlength="11" />
         </div>
       </label>
       </th>
