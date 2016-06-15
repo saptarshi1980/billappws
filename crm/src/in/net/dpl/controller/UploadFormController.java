@@ -2,12 +2,15 @@ package in.net.dpl.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -19,6 +22,9 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import in.net.dpl.dao.TempConDAO;
+
+
 
 
 @Controller
@@ -28,14 +34,14 @@ public class UploadFormController implements HandlerExceptionResolver{
 	
 	@RequestMapping(value="/UploadForm.dpl",method=RequestMethod.POST)
     public String showForm(ModelMap model,@RequestParam("load") String load,@RequestParam("phase") String phase,@RequestParam("address1") String address1,@RequestParam("address1") String address2,@RequestParam("pin_code") String pin_code,@RequestParam("landmark") String landmark,@RequestParam("landline") String landline,@RequestParam("name") String name,@RequestParam("mobile") String mobile,HttpServletRequest request){
-		request.setAttribute("name", name);
+		request.setAttribute("name", name.toUpperCase());
 		request.setAttribute("mobile", mobile);
 		request.setAttribute("load", load);
 		request.setAttribute("phase", phase);
-		request.setAttribute("address1", address1);
-		request.setAttribute("address2", address2);
+		request.setAttribute("address1", address1.toUpperCase());
+		request.setAttribute("address2", address2.toUpperCase());
 		request.setAttribute("pin_code", pin_code);
-		request.setAttribute("landmark", landmark);
+		request.setAttribute("landmark", landmark.toUpperCase());
 		request.setAttribute("landline", landline);
 		UploadForm form = new UploadForm();
         model.addAttribute("FORM", form);
@@ -59,6 +65,23 @@ public class UploadFormController implements HandlerExceptionResolver{
                 outputStream.write(form.getFile().getFileItem().get());
                 outputStream.close();
                 System.out.println(filePath);
+                String year =String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+                
+                
+                ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+            	TempConDAO tdao=(TempConDAO) ctx.getBean("tdao");
+            	int rowcount=tdao.findRef(year);
+            	
+            	String conNo=year+String.format("%04d",rowcount);
+            	request.setAttribute("conNo", conNo);
+            	
+            	String applicationDate=getDate();
+            	tdao.saveApplication(conNo, load, phase, address1, address2, pin_code, landmark, landline, name, mobile, applicationDate);
+            	
+            	
+                
+                
+                
             } catch (Exception e) {
                 System.out.println("Error while saving file");
                 e.printStackTrace();
@@ -83,4 +106,11 @@ public class UploadFormController implements HandlerExceptionResolver{
         model.put("FORM", new UploadForm());
         return new ModelAndView("FileUploadForm", (Map) model);
     }
+    public String getDate(){
+		
+    	Calendar cal = Calendar.getInstance();
+    	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+    	String formatted = format1.format(cal.getTime());
+    	return formatted; 
+	}
 }
