@@ -26,8 +26,10 @@
   <tr>
     <td colspan="2" bordercolor="#F0F0F0" bgcolor="#000066" scope="row">
        
-              <div align="center"><span class="style3">ENTER OTP </span>
-              </div></td>
+              <div align="center"><span class="style3">ENTER OTP </span><span class="style1"> (Non-Case Sensetive</span><span class="style1">)</span></div></td>
+  </tr>
+  <tr>
+    <td colspan="2" bordercolor="#F0F0F0" bgcolor="#000066" scope="row"><div align="center"><span class="style1">OTP Which was sent to you will remain valid for 15 Minutes</span> </div></td>
   </tr>
   <tr>
     <th width="203" bgcolor="#CCCCCC" scope="row">OTP</th>

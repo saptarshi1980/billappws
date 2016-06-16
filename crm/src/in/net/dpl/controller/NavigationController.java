@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import in.net.dpl.dao.OtpDAO;
+import in.net.dpl.dao.TempConDAO;
 import in.net.dpl.utility.OtpString;
 
 @Controller
@@ -35,7 +36,15 @@ public class NavigationController{
 	public ModelAndView otpValidator(@RequestParam("name") String name,@RequestParam("mobile") String mobile,@RequestParam("otp") String otp,HttpServletRequest request){
 		request.setAttribute("name", name.toUpperCase());
 		request.setAttribute("mobile", mobile);
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    	OtpDAO otpdao=(OtpDAO) ctx.getBean("otpdao");
+    	if(otpdao.verifyOtp(mobile, otp.toUpperCase()).matches("Y")){
 		ModelAndView model = new ModelAndView("newConn"); 
 		return model;
+    	}
+    	else{
+    		ModelAndView model = new ModelAndView("otp"); 
+    		return model;
+    	}
 	}
 }

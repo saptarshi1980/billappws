@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.RowCountCallbackHandler;
 public class TempConDAO {
 
 	
-private JdbcTemplate jdbcTemplate; 
+private static JdbcTemplate jdbcTemplate; 
 	
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -20,8 +20,8 @@ private JdbcTemplate jdbcTemplate;
 	    this.jdbcTemplate = jdbcTemplate;  
 	}  
 	
-	public int findRef(String year){  
-		String sql = "SELECT * FROM application_master WHERE date_format(application_date,'%Y')='"+year+"'";
+	public static synchronized int findRef(String year){  
+		String sql = "SELECT * FROM application_master WHERE date_format(application_date,'%y')='"+year+"'";
 		 System.out.println("SQL-"+sql);
 		//int total = jdbcTemplate.queryForInt(sql);
 		RowCountCallbackHandler countCallback = new RowCountCallbackHandler();
@@ -32,9 +32,12 @@ private JdbcTemplate jdbcTemplate;
 		return rowCount+1;
 	}
 	
-	public int saveApplication(String conNo,String load,String phase,String address1,String address2,String pin_code,String landmark,String landline,String name,String mobile,String application_date){  
+	public int saveApplication(String appNo,String load,String phase,String address1,String address2,String pin_code,String landmark,String landline,String name,String mobile,String application_date,String filepath){  
 	    
-		String query="insert into application_master(temp_con_no,name,con_load,phase,address1,address2,pin,landmark,landline,mobile,application_date,time_stamp) values('"+conNo+"','"+name+"','"+load+"','"+phase+"','"+address1+"','"+address2+"','"+pin_code+"','"+landmark+"','"+landline+"','"+mobile+"','"+application_date+"',NOW())";  
+		double loadDb=Double.parseDouble(load);
+		double phaseDb=Double.parseDouble(phase);
+		
+		String query="insert into application_master(app_no,name,con_load,phase,address1,address2,pin,landmark,landline,mobile,application_date,time_stamp,file_path) values('"+appNo+"','"+name+"','"+Math.round(loadDb)+"','"+Math.round(phaseDb)+"','"+address1+"','"+address2+"','"+pin_code+"','"+landmark+"','"+landline+"','"+mobile+"','"+application_date+"',NOW(),'"+filepath+"')";  
 	    return jdbcTemplate.update(query);  
 	}  
 }

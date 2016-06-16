@@ -26,6 +26,9 @@
 	<bean id="tdao" class="in.net.dpl.dao.TempConDAO">  
 	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
 	</bean>
+	<bean id="otpdao" class="in.net.dpl.dao.OtpDAO">  
+	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+	</bean>
 	
 
 </beans>

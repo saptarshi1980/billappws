@@ -51,32 +51,31 @@ public class UploadFormController implements HandlerExceptionResolver{
     
     @RequestMapping(value="/FileUploadForm.dpl",method=RequestMethod.POST)
     public String processForm(@ModelAttribute(value="FORM") UploadForm form,BindingResult result,@RequestParam("load") String load,@RequestParam("phase") String phase,@RequestParam("address1") String address1,@RequestParam("address1") String address2,@RequestParam("pin_code") String pin_code,@RequestParam("landmark") String landmark,@RequestParam("landline") String landline,@RequestParam("name") String name,@RequestParam("mobile") String mobile,HttpServletRequest request){
-        if(!result.hasErrors()){
+        
+    	String applicationDate=getDate();
+    	if(!result.hasErrors()){
             
         	System.out.println(load);
         	FileOutputStream outputStream = null;
-            System.setProperty("java.io.tmpdir", "d:/uploadcrm");
-            String path=System.getProperty("java.io.tmpdir")+"/14062016/1";
-            File f = new File(path);
-            f.mkdirs();
-            String filePath = path+"/"+form.getFile().getOriginalFilename();
+            
+            
             try {
-                outputStream = new FileOutputStream(new File(filePath));
+            	String year =String.valueOf(Calendar.getInstance().get(Calendar.YEAR)-2000);
+            	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+            	TempConDAO tdao=(TempConDAO) ctx.getBean("tdao");
+            	int rowcount=tdao.findRef(year);
+            	System.setProperty("java.io.tmpdir", "d:/uploadcrm");
+                String path=System.getProperty("java.io.tmpdir")+"/"+applicationDate+"/"+rowcount;
+                File f = new File(path);
+                f.mkdirs();
+                String filePath = path+"/"+form.getFile().getOriginalFilename();
+            	outputStream = new FileOutputStream(new File(filePath));
                 outputStream.write(form.getFile().getFileItem().get());
                 outputStream.close();
                 System.out.println(filePath);
-                String year =String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-                
-                
-                ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-            	TempConDAO tdao=(TempConDAO) ctx.getBean("tdao");
-            	int rowcount=tdao.findRef(year);
-            	
-            	String conNo=year+String.format("%04d",rowcount);
-            	request.setAttribute("conNo", conNo);
-            	
-            	String applicationDate=getDate();
-            	tdao.saveApplication(conNo, load, phase, address1, address2, pin_code, landmark, landline, name, mobile, applicationDate);
+                String appNo=year+String.format("%04d",rowcount);
+            	request.setAttribute("appNo", appNo);
+ 	         	tdao.saveApplication(appNo, load, phase, address1, address2, pin_code, landmark, landline, name, mobile, applicationDate,filePath);
             	
             	
                 

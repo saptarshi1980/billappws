@@ -25,7 +25,28 @@ public class OtpDAO {
 	    
 		new   OtpString().callSMSWs(mobile);
 	      
-	}  
+	} 
+	
+	public String verifyOtp(String mobile,String otp){
+		
+		
+		String query="SELECT * FROM otp WHERE mobile='"+mobile+"' AND otp='"+otp+"' AND TIMESTAMPDIFF(MINUTE,TIME_STAMP,NOW())<16 ORDER BY time_stamp DESC LIMIT 1";
+		RowCountCallbackHandler countCallback = new RowCountCallbackHandler();
+		jdbcTemplate.query(query, countCallback);
+		int rowCount = 0;
+		rowCount=countCallback.getRowCount();
+		
+		if(rowCount>0){
+			return "Y";
+		}
+		
+		else return "F";
+		
+		
+		
+		
+		
+	}
 	
 	
 	

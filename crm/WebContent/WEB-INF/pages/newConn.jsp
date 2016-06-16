@@ -227,9 +227,33 @@ function validatePin()
 
 function validateLand()
 {
-   if(isNaN(form1.landline.value))
+   if(form1.landline.value=="" || form1.landline.value==null)
   { 
-      alert("A Numerical value must be entered ");
+      alert("A value must be entered, Enter N/A if not Applicable ");
+      form1.landline.value="";
+      form1.landline.focus();
+      return false;
+  } 
+
+}
+
+function validateAddress1()
+{
+   if(form1.address1.value=="" || form1.address1.value==null)
+  { 
+      alert("A value must be entered, Enter N/A if not Applicable ");
+      form1.landline.value="";
+      form1.landline.focus();
+      return false;
+  } 
+
+}
+
+function validateAddress2()
+{
+   if(form1.address2.value=="" || form1.address2.value==null)
+  { 
+      alert("A value must be entered, Enter N/A if not Applicable ");
       form1.landline.value="";
       form1.landline.focus();
       return false;
@@ -307,13 +331,13 @@ function applicantLand()
     <td height="28" bgcolor="#CCCCCC"><table cellspacing="0" cellpadding="0">
   <td height="20" width="246">Address: Line 1</td>
     </table></td>
-    <td bgcolor="#CCCCCC"><input name="address1" type="text" size="50"></td>
+    <td bgcolor="#CCCCCC"><input name="address1" type="text" size="50" onBlur="return validateAddress1()"></td>
   </tr>
   <tr>
     <td height="28" bgcolor="#CCCCCC"><table cellspacing="0" cellpadding="0">
   <td height="20" width="246">Address: Line 2</td>
     </table></td>
-    <td bgcolor="#CCCCCC"><input name="address2" type="text" size="50"></td>
+    <td bgcolor="#CCCCCC"><input name="address2" type="text" size="50" onBlur="return validateAddress2()"></td>
   </tr>
   <tr>
     <td height="28" bgcolor="#CCCCCC">Pin Code </td>

@@ -34,7 +34,7 @@
   <tr>
     <th width="239" bgcolor="#CCCCCC" scope="row">
       <label></label>        Temporary Consumer No</th>
-    <th width="250" bgcolor="#CCCCCC" scope="row"><c:out value="${conNo}" /></th>
+    <th width="250" bgcolor="#CCCCCC" scope="row"><c:out value="${appNo}" /></th>
   </tr>
   <tr>
     <th colspan="2" bgcolor="#CCCCCC" scope="row"><A HREF="index.dpl">HOME</A></th>
