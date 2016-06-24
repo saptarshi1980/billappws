@@ -23,6 +23,9 @@
 	<bean id="otpString" class="in.net.dpl.utility.OtpString">  
 	 
 	</bean>
+	<bean id="aDisplay" class="in.net.dpl.dao.AppDisplayDAO">  
+	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+	</bean>
 	<bean id="tdao" class="in.net.dpl.dao.TempConDAO">  
 	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
 	</bean>

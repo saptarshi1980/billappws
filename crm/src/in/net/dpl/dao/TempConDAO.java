@@ -37,7 +37,7 @@ private static JdbcTemplate jdbcTemplate;
 		double loadDb=Double.parseDouble(load);
 		double phaseDb=Double.parseDouble(phase);
 		
-		String query="insert into application_master(app_no,name,con_load,phase,address1,address2,pin,landmark,landline,mobile,application_date,time_stamp,file_path) values('"+appNo+"','"+name+"','"+Math.round(loadDb)+"','"+Math.round(phaseDb)+"','"+address1+"','"+address2+"','"+pin_code+"','"+landmark+"','"+landline+"','"+mobile+"','"+application_date+"',NOW(),'"+filepath+"')";  
+		String query="insert into application_master(app_no,name,con_load,phase,address1,address2,pin,landmark,landline,mobile,application_date,time_stamp,file_path,phase_id) values('"+appNo+"','"+name+"','"+Math.round(loadDb)+"','"+Math.round(phaseDb)+"','"+address1+"','"+address2+"','"+pin_code+"','"+landmark+"','"+landline+"','"+mobile+"','"+application_date+"',NOW(),'"+filepath+"','1')";  
 	    return jdbcTemplate.update(query);  
 	}  
 }
