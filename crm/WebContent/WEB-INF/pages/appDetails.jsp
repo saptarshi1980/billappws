@@ -11,6 +11,7 @@
 <div align="center">
 <p><img src="images/logo_blue.jpg" /></p><br><br>
 <div align="center">
+<form name="form1" method="post" action="allocateSS.dpl">
 <table border="1">
       <TH bgcolor="#CCCCCC">Application Date</th>
       <TH bgcolor="#CCCCCC">Application Number</th>
@@ -32,7 +33,7 @@
           <td><c:out value="${row.phase}" /></td>
           <td><c:out value="${row.mobile}" /></td>
           <td><a href="downloadFile.dpl?file_path=${row.filePath}&app_no=${row.applicationNumber}">Download Documents</a></td>
-          
+          <input type="hidden" name="app_no" value="${row.applicationNumber}">
         </tr>
       </c:forEach>
       
@@ -53,8 +54,9 @@
     </tr>
     <tr>
       <td colspan="2" bgcolor="#996666"><div align="center">
-        <form name="form1" method="post" action="">
+        
           <label>
+           
             <input type="submit" name="Submit" value="Forward">
             </label>
         </form>

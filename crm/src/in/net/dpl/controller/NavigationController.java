@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import in.net.dpl.dao.AppDisplayDAO;
+import in.net.dpl.dao.AppModifyDAO;
 import in.net.dpl.dao.OtpDAO;
 import in.net.dpl.dao.TempConDAO;
 import in.net.dpl.utility.OtpString;
@@ -57,7 +58,7 @@ public class NavigationController{
 	}
 	
 	@RequestMapping(value="/swHome.dpl",method = RequestMethod.GET)
-	public ModelAndView subStationHome(){
+	public ModelAndView swHome(){
  
 		ModelAndView model = new ModelAndView("selectMonth"); 
 		return model;
@@ -109,5 +110,40 @@ public class NavigationController{
         e.printStackTrace();
     }
 	
+	}
+	
+	@RequestMapping("/allocateSS.dpl")
+    public ModelAndView allocateSS(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("appModifySuccess"); 
+	try {
+     
+		String ssName=request.getParameter("ss");
+		String appNo=request.getParameter("app_no");
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    	AppModifyDAO appmodifypdao=(AppModifyDAO) ctx.getBean("modifydao");
+    	appmodifypdao.updateSS(appNo, ssName);
+    	model.addObject("msg","Application no "+appNo+" has been forwarded to Sub-Station "+ssName);
+    	
+    		
+		
+    }
+	catch (Exception e){
+        
+        e.printStackTrace();
+    }
+	return model;
+	
+	}
+	
+	@RequestMapping(value="/ssHome.dpl",method = RequestMethod.GET)
+	public ModelAndView subStationHome(){
+ 
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    	AppDisplayDAO appdao=(AppDisplayDAO) ctx.getBean("aDisplayss");
+    	//appdao.viewApplication(monthpicker);
+		ModelAndView model = new ModelAndView("appListSS"); 
+		model.addObject("list",appdao.viewApplicationSS());
+		return model;
+		
 	}
 }

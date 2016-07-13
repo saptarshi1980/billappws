@@ -91,4 +91,31 @@ public class AppDisplayDAO {
 	       return list;
 	       
 		}
+	
+	
+	public List<Application> viewApplicationSS(){
+		
+		   String query = "SELECT a.app_no,DATE_FORMAT(a.application_date,'%d-%m-%Y') AS application_date,a.name,round(a.con_load) AS con_load,concat(a.address1,' ',a.address2,' ',a.pin,' ',a.landmark) AS address,a.mobile,a.phase,a.file_path,cast(b.time_stamp as char) as time_stamp from application_master a,application_activity b where a.app_no=b.app_no and b.phase_id=2 order by a.time_stamp ";
+	       List<Application> list = new ArrayList<Application>();
+	       List<Map<String, Object>> rows = getJdbcTemplate().queryForList(query);
+	       
+	       for (Map<String, Object> row:rows){
+	    	   Application application =new Application();
+	    	   application.setApplicationNumber((String)row.get("app_no"));
+	    	   application.setAddress((String)row.get("address"));
+	    	   application.setApplicationDate((String)row.get("application_date"));
+	    	   application.setApplicatantName((String)row.get("name"));
+	    	   application.setConnectionLoad((Double)row.get("con_load"));
+	    	   application.setPhase((Double)row.get("phase"));
+	    	   application.setMobile((String)row.get("mobile"));
+	    	   application.setFilePath((String)row.get("file_path"));
+	    	   application.setModifyDate((String)row.get("time_stamp"));
+	    	   
+	    	   list.add(application);
+	      	   
+	       }
+	       System.out.println("List-"+list.size());
+	       return list;
+	       
+		}
 }

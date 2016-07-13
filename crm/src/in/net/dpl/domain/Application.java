@@ -10,6 +10,7 @@ public class Application {
 	String mobile;
 	double phase;
 	String filePath;
+	String modifyDate;
 	
 	
 	
@@ -61,6 +62,13 @@ public class Application {
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
+	public String getModifyDate() {
+		return modifyDate;
+	}
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	
 	
 	
 	

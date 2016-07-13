@@ -32,6 +32,12 @@
 	<bean id="otpdao" class="in.net.dpl.dao.OtpDAO">  
 	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
 	</bean>
+	<bean id="modifydao" class="in.net.dpl.dao.AppModifyDAO">  
+	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+	</bean>
+	<bean id="aDisplayss" class="in.net.dpl.dao.AppDisplayDAO">  
+	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+	</bean>
 	
 
 </beans>
