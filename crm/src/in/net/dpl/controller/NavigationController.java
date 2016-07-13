@@ -136,13 +136,13 @@ public class NavigationController{
 	}
 	
 	@RequestMapping(value="/ssHome.dpl",method = RequestMethod.GET)
-	public ModelAndView subStationHome(){
+	public ModelAndView subStationHome(HttpServletRequest request){
  
+		String subStaionName="A ZONE SUB STATION";
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     	AppDisplayDAO appdao=(AppDisplayDAO) ctx.getBean("aDisplayss");
-    	//appdao.viewApplication(monthpicker);
-		ModelAndView model = new ModelAndView("appListSS"); 
-		model.addObject("list",appdao.viewApplicationSS());
+    	ModelAndView model = new ModelAndView("appListSS"); 
+		model.addObject("list",appdao.viewApplicationSS(subStaionName));
 		return model;
 		
 	}

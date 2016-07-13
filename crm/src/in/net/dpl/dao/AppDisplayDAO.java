@@ -31,8 +31,9 @@ public class AppDisplayDAO {
 	
 	public List<Application> viewApplication(String applicationMonth){
 		
-	   String query = "SELECT app_no,DATE_FORMAT(application_date,'%d-%m-%Y') AS application_date,name,round(con_load) AS con_load,concat(address1,' ',address2,' ',pin,' ',landmark) AS address,mobile,phase,file_path from application_master where date_format(application_date,'%m/%Y')='"+applicationMonth+"' order by time_stamp ";
-       List<Application> list = new ArrayList<Application>();
+	   //String query = "SELECT app_no,DATE_FORMAT(application_date,'%d-%m-%Y') AS application_date,name,round(con_load) AS con_load,concat(address1,' ',address2,' ',pin,' ',landmark) AS address,mobile,phase,file_path from application_master where date_format(application_date,'%m/%Y')='"+applicationMonth+"' order by time_stamp ";
+	   String query="SELECT a.app_no,DATE_FORMAT(a.application_date,'%d-%m-%Y') AS application_date,a.name,round(a.con_load) AS con_load,concat(a.address1,' ',a.address2,' ',a.pin,' ',a.landmark) AS address,a.mobile,a.phase,a.file_path,cast(b.time_stamp as char) as time_stamp from application_master a,application_activity b where date_format(a.application_date,'%m/%Y')='"+applicationMonth+"' and a.app_no=b.app_no and b.phase_id=1 order by a.time_stamp"; 
+	   List<Application> list = new ArrayList<Application>();
        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(query);
        
        for (Map<String, Object> row:rows){
@@ -93,9 +94,9 @@ public class AppDisplayDAO {
 		}
 	
 	
-	public List<Application> viewApplicationSS(){
+	public List<Application> viewApplicationSS(String ssName){
 		
-		   String query = "SELECT a.app_no,DATE_FORMAT(a.application_date,'%d-%m-%Y') AS application_date,a.name,round(a.con_load) AS con_load,concat(a.address1,' ',a.address2,' ',a.pin,' ',a.landmark) AS address,a.mobile,a.phase,a.file_path,cast(b.time_stamp as char) as time_stamp from application_master a,application_activity b where a.app_no=b.app_no and b.phase_id=2 order by a.time_stamp ";
+		   String query = "SELECT a.app_no,DATE_FORMAT(a.application_date,'%d-%m-%Y') AS application_date,a.name,round(a.con_load) AS con_load,concat(a.address1,' ',a.address2,' ',a.pin,' ',a.landmark) AS address,a.mobile,a.phase,a.file_path,cast(b.time_stamp as char) as time_stamp from application_master a,application_activity b,application_substation c where a.app_no=b.app_no and a.app_no=c.application_no and b.phase_id=2 and c.substation_name='"+ssName+"'order by a.time_stamp ";
 	       List<Application> list = new ArrayList<Application>();
 	       List<Map<String, Object>> rows = getJdbcTemplate().queryForList(query);
 	       
