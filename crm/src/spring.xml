@@ -38,6 +38,9 @@
 	<bean id="aDisplayss" class="in.net.dpl.dao.AppDisplayDAO">  
 	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
 	</bean>
+	<bean id="logindao" class="in.net.dpl.dao.LoginDAO">  
+	<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+	</bean>
 	
 
 </beans>

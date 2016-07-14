@@ -55,7 +55,7 @@ public class UploadFormController implements HandlerExceptionResolver{
     	String applicationDate=getDate();
     	if(!result.hasErrors()){
             
-        	System.out.println(load);
+        	//System.out.println(load);
         	FileOutputStream outputStream = null;
             
             
@@ -82,7 +82,7 @@ public class UploadFormController implements HandlerExceptionResolver{
                 
                 
             } catch (Exception e) {
-                System.out.println("Error while saving file");
+                //System.out.println("Error while saving file");
                 e.printStackTrace();
                 return "FileUploadForm";
             }

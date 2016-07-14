@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.net.dpl.dao.AppDisplayDAO;
 import in.net.dpl.dao.AppModifyDAO;
+import in.net.dpl.dao.LoginDAO;
 import in.net.dpl.dao.OtpDAO;
 import in.net.dpl.dao.TempConDAO;
+import in.net.dpl.domain.LoginSS;
 import in.net.dpl.utility.OtpString;
 
 @Controller
@@ -136,14 +142,97 @@ public class NavigationController{
 	}
 	
 	@RequestMapping(value="/ssHome.dpl",method = RequestMethod.GET)
-	public ModelAndView subStationHome(HttpServletRequest request){
+	public ModelAndView subStationHome(HttpServletRequest request,RedirectAttributes redirectAttributes,@RequestParam("ssName") String ssName,@RequestParam("ssCode") String ssCode){
  
-		String subStaionName="A ZONE SUB STATION";
+		
+		request.getSession().setAttribute("ssCode", ssCode);
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     	AppDisplayDAO appdao=(AppDisplayDAO) ctx.getBean("aDisplayss");
     	ModelAndView model = new ModelAndView("appListSS"); 
-		model.addObject("list",appdao.viewApplicationSS(subStaionName));
+		model.addObject("list",appdao.viewApplicationSS(ssName));
 		return model;
 		
 	}
+	
+	@RequestMapping(value="/viewAppSS.dpl",method = RequestMethod.GET)
+	public ModelAndView appDetailSS(HttpServletRequest request){
+ 
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    	AppDisplayDAO appdao=(AppDisplayDAO) ctx.getBean("aDisplay");
+    	//appdao.viewDetail(request.getParameter("app_no"));
+		ModelAndView model = new ModelAndView("appDetailsSS"); 
+		model.addObject("list",appdao.viewDetail(request.getParameter("app_no")));
+		model.addObject("ssList",appdao.ssList());
+		
+		return model;
+	}
+	
+	@RequestMapping(value="/loginSS.dpl",method = RequestMethod.GET)
+	public ModelAndView loginSS(){
+ 
+		ModelAndView model = new ModelAndView("loginSS"); 
+		return model;
+	}
+	
+	
+	@RequestMapping(value="/authSS.dpl",method = RequestMethod.POST)
+	public String authSS(@RequestParam("uid") String uid,@RequestParam("pass") String pass,HttpServletRequest request,RedirectAttributes redirectAttributes){
+		request.setAttribute("uid", uid);
+		request.setAttribute("pass", pass);
+		String ssName=null;
+		String ssCode=null;
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    	LoginDAO logindao=(LoginDAO) ctx.getBean("logindao");
+    	
+    	List<LoginSS> list = new ArrayList<LoginSS>();
+    	list=logindao.loginSS(uid, pass);
+    	
+    	if(list.size()>0){
+    		for (LoginSS ss:list){
+    			ssName=ss.getSsName();
+  		      	ssCode=ss.getSsCode();
+    		}
+    		   		
+    		 
+    		 redirectAttributes.addAttribute("ssName", ssName);
+    		 redirectAttributes.addAttribute("ssCode", ssCode);
+    		    		 
+    		 return "redirect:/ssHome.dpl";
+    	}
+    	else{
+    		return "redirect:/loginSS.dpl";
+    	}
+}
+	
+	@RequestMapping("/updatePrelSS.dpl")
+    public ModelAndView updatePrelSS(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("appModifySuccess"); 
+	try {
+     
+		String appNo=request.getParameter("app_no");
+		String ssCode=request.getParameter("ss_code");
+		System.out.println("SS Code-"+ssCode);
+		String cablingMode=request.getParameter("cb");
+		double length=Double.parseDouble(request.getParameter("length"));
+		String remarks=request.getParameter("remarks");
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    	AppModifyDAO appmodifypdao=(AppModifyDAO) ctx.getBean("modifydao");
+    	appmodifypdao.updatePrelSS(appNo, ssCode, cablingMode, length, remarks);
+    	model.addObject("msg","Application no "+appNo+" has been updated");
+    	
+    		
+		
+    }
+	catch (Exception e){
+        
+        e.printStackTrace();
+    }
+	return model;
+	
+	}
+	
+	
+	
+	
+	
 }

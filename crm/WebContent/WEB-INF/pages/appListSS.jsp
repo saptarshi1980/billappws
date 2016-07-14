@@ -26,7 +26,7 @@
         
           <td><c:out value="${row.applicationDate}" /></td>
           <td><c:out value="${row.modifyDate}" /></td>
-          <td><a href="viewApp.dpl?app_no=${row.applicationNumber}"><c:out value="${row.applicationNumber}" /></a></td>
+          <td><a href="viewAppSS.dpl?app_no=${row.applicationNumber}"><c:out value="${row.applicationNumber}" /></a></td>
           <td><c:out value="${row.applicatantName}" /></td>
           <td><c:out value="${row.address}" /></td>
           <td><c:out value="${row.connectionLoad}" /></td>

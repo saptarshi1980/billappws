@@ -22,12 +22,12 @@ private static JdbcTemplate jdbcTemplate;
 	
 	public static synchronized int findRef(String year){  
 		String sql = "SELECT * FROM application_master WHERE date_format(application_date,'%y')='"+year+"'";
-		 System.out.println("SQL-"+sql);
+		 //System.out.println("SQL-"+sql);
 		//int total = jdbcTemplate.queryForInt(sql);
 		RowCountCallbackHandler countCallback = new RowCountCallbackHandler();
 		jdbcTemplate.query(sql, countCallback);
 		int rowCount = countCallback.getRowCount();
-		System.out.println("Row count-"+rowCount);			
+		//System.out.println("Row count-"+rowCount);			
 		//return total;
 		return rowCount+1;
 	}
